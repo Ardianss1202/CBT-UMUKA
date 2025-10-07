@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
@@ -38,7 +39,15 @@ class LoginController extends Controller
         Auth::login($admin);
         $request->session()->regenerate();
 
-        $nama = Siswa::where('id', $admin->kon_id)->value('nama');
+        if ($admin->level == 'siswa_tryout') {
+            $nama = DB::table('m_siswa_tryout')
+                        ->where('id', $admin->kon_id)
+                        ->value('nama');
+        } elseif ($admin->level == 'siswa') {
+            $nama = Siswa::where('id', $admin->kon_id)->value('nama');
+        } else {
+            $nama = 'admin';
+        }
         Session::put('kon_id', $admin->kon_id);
         Session::put('nama', $nama);
         Session::put('level', $admin->level);
@@ -48,6 +57,8 @@ class LoginController extends Controller
             return redirect()->route('dashboard');
         } elseif ($admin->level === 'siswa') {
             return redirect()->route('dashboard_user');
+        } elseif ($admin->level === 'siswa_tryout') {
+            return redirect()->route('dashboard_user_tryout');
         } else {
             Auth::logout();
             return back()->withErrors([

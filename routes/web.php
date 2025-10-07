@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController as AuthRegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SoalController;
@@ -9,13 +10,19 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HasilUjianController;
 use App\Http\Controllers\IkutUjianController;
+use App\Http\Controllers\MapelTryoutController;
+use App\Http\Controllers\RegisterTryoutController;
+use App\Http\Controllers\SiswaTryoutController;
 use App\Http\Controllers\UjianController;
+use App\Models\Siswa;
 
 // Menampilkan halaman login
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/register-tryout', [RegisterTryoutController::class, 'showRegisterForm'])->name('register');
 
 // Proses login
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/create-register-tryout', [RegisterTryoutController::class, 'register'])->name('register.post');
 
 // Dashboard hanya bisa diakses setelah login
 Route::middleware(['authadmin'])->group(function () {
@@ -55,6 +62,18 @@ Route::middleware(['authadmin'])->group(function () {
     Route::get('/hasil-ujian/data/{id}', [HasilUjianController::class, 'dataDetail'])->name('hasil-ujian.data');
     Route::get('/hasil-ujian/batalkan/{id}/{tes_id}', [HasilUjianController::class, 'batalkan'])->name('hasil-ujian.batalkan');
 
+    Route::get('/mapel-tryout', [MapelTryoutController::class, 'index'])->name('mapel_tryout.index');
+    Route::get('/mapel-tryout-create', [MapelTryoutController::class, 'create'])->name('mapel_tryout.create');
+    Route::post('/mapel-tryout-store', [MapelTryoutController::class, 'store'])->name('mapel_tryout.store');
+    Route::get('/mapel-tryout/{id}/edit', [MapelTryoutController::class, 'edit'])->name('mapel_tryout.edit');
+    Route::delete('/mapel-tryout/{id}', [MapelTryoutController::class, 'destroy'])->name('mapel_tryout.destroy');
+    Route::put('/mapel-tryout/{id}', [MapelTryoutController::class, 'update'])->name('mapel_tryout.update');
+
+    Route::get('/data-siswa-tryout', [SiswaTryoutController::class, 'index'])->name('siswa_tryout.index');
+    Route::get('/data-siswa-tryout/{id}/edit', [SiswaTryoutController::class, 'edit'])->name('siswa_tryout.edit');
+    Route::put('/data-siswa-tryout/{id}', [SiswaTryoutController::class, 'update'])->name('siswa_tryout.update');
+    Route::delete('/data-siswa-tryout/{id}', [SiswaTryoutController::class, 'destroy'])->name('siswa_tryout.destroy');
+
     Route::prefix('hasil_ujian')->group(function () {
         Route::get('/', [HasilUjianController::class, 'index'])->name('hasil_ujian.index'); // Menampilkan semua hasil ujian
         Route::get('/create', [HasilUjianController::class, 'create'])->name('hasil_ujian.create'); // Form tambah hasil ujian
@@ -81,6 +100,11 @@ Route::middleware(['authuser'])->group(function () {
     
     Route::post('/ujian/submit', [UjianController::class, 'submitJawaban'])->name('submit_jawaban');
 }); 
+
+Route::middleware(['authusertryout'])->group(function () {
+    Route::get('/dashboard-user-tryout', [DashboardController::class, 'dashboard_user_tryout'])->name('dashboard_user_tryout');  
+}); 
+
 // Logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

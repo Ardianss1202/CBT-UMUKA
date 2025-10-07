@@ -20,5 +20,10 @@ class DashboardController extends Controller
     {
         return view('dashboard_user'); 
     }
+
+    public function dashboard_user_tryout()
+    {
+        return view('dashboard_user_tryout'); 
+    }
     
 }

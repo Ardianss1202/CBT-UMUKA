@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .custom-radio {
+    accent-color: #0d6efd !important;
+    transform: scale(1.3);
+    display: inline-block;
+    border: solid 1px black;
+    }
+</style>
 <div class="container">
 
     <div class="alert alert-info text-center">
@@ -12,7 +20,7 @@
     @foreach ($soals as $index => $soal)
         <div class="card mb-3">
             <div class="card-header">
-                <strong>Soal {{ $index + 1 }}</strong>
+                <strong>Soal {{ $soals->firstItem() + $index }}</strong>
             </div>
             <div class="card-body">
                 {!! $soal->soal !!}
@@ -23,7 +31,7 @@
 
                 @foreach (['A', 'B', 'C', 'D'] as $opsi)
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $opsi }}" required>
+                        <input class="form-check-input custom-radio" type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $opsi }}" required>
                         <label class="form-check-label">
                             {!! $opsi !!}. {!! str_replace(['#####', '<p>', '</p>'], '', $soal->{'opsi_' . strtolower($opsi)}) !!}
                         </label>
@@ -33,6 +41,9 @@
             </div>
         </div>
     @endforeach  
+    
+    {{ $soals->links('pagination::bootstrap-5') }}
+
     <input type="hidden" name="waktu_mulai" value="{{$waktu_mulai}}">
     <button type="submit" class="btn btn-primary">Kirim Jawaban</button>
 </form>

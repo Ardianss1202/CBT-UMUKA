@@ -27,11 +27,8 @@
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" 
+                        <input id="username" type="text" class="form-control" 
                                name="username" value="{{ old('username') }}" required autofocus>
-                        @error('username')
-                            <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
-                        @enderror
                     </div>
                 </div>
 
@@ -39,16 +36,21 @@
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" 
+                        <input id="password" type="password" class="form-control" 
                                name="password" required>
-                        @error('password')
-                            <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
-                        @enderror
                     </div>
                 </div>
-
+                @error('username')
+                    <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
+                @enderror
+                @error('password')
+                    <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
+                @enderror        
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="{{ url('register-tryout') }}" class="d-block text-center mt-4">Register Tryout</a>
+
+
                 </div>
             </form>
         </div>

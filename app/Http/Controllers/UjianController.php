@@ -67,8 +67,9 @@ class UjianController extends Controller
         $idMapel = session('id_mapel');
 
         $ujian = GuruTes::where('id_mapel', $idMapel)->first();
-        $soals = DB::table('m_soal')->where('id_mapel', $idMapel)->get();
-        
+        $soals = DB::table('m_soal')
+        ->where('id_mapel', $idMapel)
+        ->paginate(10);
 
         $waktu_mulai = Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s');
 
