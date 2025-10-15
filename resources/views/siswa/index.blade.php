@@ -40,6 +40,11 @@
                                 <th>Nama</th>
                                 <th>NIM</th>
                                 <th>Jurusan</th>
+                                <th>Sekolah</th>
+                                <th>No hp</th>
+                                <th>Email</th>
+                                <th>Mapel wajib</th>
+                                <th>Mapel pilihan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -48,8 +53,13 @@
                             <tr>
                                 <td>{{ $loop->iteration + ($siswas->firstItem() - 1) }}</td>
                                 <td>{{ $siswa->nama }}</td>
-                                <td>{{ $siswa->nim }}</td>
-                                <td>{{ $siswa->jurusan }}</td>
+                                <td>{{ $siswa->nim ?? '-' }}</td>
+                                <td>{{ $siswa->jurusan ?? '-' }}</td>
+                                <td>{{ $siswa->sekolah }}</td>
+                                <td>{{ $siswa->no_hp }}</td>
+                                <td>{{ $siswa->email }}</td>
+                                <td>{{ implode(', ', $siswa->mapel_wajib_nama) }}</td>
+                                <td>{{ implode(', ', $siswa->mapel_pilihan_nama) }}</td>
                                 <td>
                                     <a href="{{ url('/siswa/' . $siswa->id . '/edit') }}" class="btn btn-primary btn-sm">Edit</a>
                         

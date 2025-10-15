@@ -24,38 +24,58 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
                 
-                <table class="table table-bordered" id="datatabel">
-                    <thead>
-                        <tr>
-                            <th width="5%">No</th>
-                            <th width="50%">Soal</th>
-                            <th width="15%">Mapel</th>
-                            <th width="15%">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($soals as $index => $soal)
-                        <tr>
-                            <td>{{ ($soals->currentpage()-1) * $soals->perpage() + $loop->index + 1 }}</td>
-                            <td>{!! $soal->soal !!}</td>
-                            <td>{{ $soal->mapel->nama ?? '-' }}</td>
+            <table class="table table-bordered" id="datatabel">
+                <thead>
+                    <tr>
+                        <th width="5%">No</th>
+                        <th width="50%">Soal</th>
+                        <th width="15%">Mapel</th>
+                        <th width="15%">Gambar</th>
+                        <th width="15%">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($soals as $index => $soal)
+                    <tr>
+                        <td>{{ ($soals->currentPage() - 1) * $soals->perPage() + $loop->index + 1 }}</td>
+                        
+                        <!-- Kolom Soal -->
+                        <td>{!! $soal->soal !!}</td>
+                        
+                        <!-- Kolom Mapel -->
+                        <td>{{ $soal->mapel->nama ?? '-' }}</td>
+                        
+                        <!-- Kolom Gambar -->
+                        <td>
+                            @if($soal->file)
+                                <img src="{{ asset('upload/gambar_soal/' . $soal->file) }}" 
+                                    alt="Gambar Soal" width="80" class="img-thumbnail">
+                            @else
+                                <span class="text-muted">Tidak ada</span>
+                            @endif
+                        </td>
 
-                            <td>
-                                <a href="{{ route('soal.edit', $soal->id) }}" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="{{ route('soal.destroy', $soal->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        <!-- Kolom Aksi -->
+                        <td>
+                            <a href="{{ route('soal.edit', $soal->id) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('soal.destroy', $soal->id) }}" 
+                                method="POST" 
+                                class="d-inline" 
+                                onsubmit="return confirm('Yakin ingin menghapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
 
                 {{ $soals->links() }}
             </div>

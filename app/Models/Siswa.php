@@ -13,7 +13,7 @@ class Siswa extends Model
     protected $primaryKey = 'id'; // Pastikan ini sesuai dengan primary key tabel
     public $timestamps = false; // Nonaktifkan jika tabel tidak memiliki created_at & updated_at
 
-    protected $fillable = ['nama', 'nim', 'jurusan']; // Sesuaikan dengan kolom di tabel
+    protected $fillable = ['nama', 'nim', 'jurusan', 'no_hp', 'email', 'mapel_wajib', 'mapel_pilihan', 'sekolah', 'token']; // Sesuaikan dengan kolom di tabel
 
    
 }

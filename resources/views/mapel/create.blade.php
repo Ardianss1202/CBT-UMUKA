@@ -23,6 +23,17 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
+                <label for="kategori" class="form-label">kategori</label>
+                    <select name="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="wajib">Wajib</option>
+                        <option value="pilihan">Pilihan</option>
+                    </select>
+
+                    @error('kategori')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 
                 
                 <button type="submit" class="btn text-white bg-success">Tambah Mapel</button>

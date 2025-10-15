@@ -24,6 +24,18 @@
                     @error('nama')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    
+                    <label for="kategori" class="form-label">kategori</label>
+                    <select name="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="wajib" {{ old('kategori', $mapel->kategori) == 'wajib' ? 'selected' : '' }}>Wajib</option>
+                        <option value="pilihan" {{ old('kategori', $mapel->kategori) == 'pilihan' ? 'selected' : '' }}>Pilihan</option>
+                    </select>
+
+                    @error('kategori')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
                 </div>
 
                 <button type="submit" class="btn text-white bg-success">Simpan Perubahan</button>

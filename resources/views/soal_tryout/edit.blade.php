@@ -3,7 +3,7 @@
 @section('title', 'Input Soal')
 
 @section('content')
-<form action="{{ route('soal.update', $soal->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('soal_tryout.update', $soal->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -20,22 +20,17 @@
         </select>
     </div>
 
-    {{-- <div class="mb-3">
-        <label for="gambar_soal" class="form-label">Gambar Soal (Opsional)</label>
-        <input type="file" name="gambar_soal" class="form-control">
-        @if(!empty($soal->file) && file_exists(public_path('upload/gambar_soal/'.$soal->file)))
-            <img src="{{ asset('upload/gambar_soal/'.$soal->file) }}" alt="Gambar Soal" class="img-thumbnail mt-2" width="200">
+    <div class="mb-3">
+        <label for="file" class="form-label">Gambar Soal (Opsional)</label>
+        <input type="file" name="file" class="form-control">
+        @if(!empty($soal->file) && file_exists(public_path('upload/gambar_soal_tryout/'.$soal->file)))
+            <img src="{{ asset('upload/gambar_soal_tryout/'.$soal->file) }}" alt="Gambar Soal" class="img-thumbnail mt-2" width="200">
         @endif
-    </div> --}}
+    </div>
 
     <div class="mb-3">
         <label for="soal" class="form-label">Teks Soal</label>
         <textarea name="soal" id="soal" class="form-control" rows="3">{{ old('soal', $soal->soal ?? '') }}</textarea>
-    </div>
-
-    <div class="mb-3">
-        <label for="file" class="form-label">Gambar Soal (Opsional)</label>
-        <input type="file" name="file" class="form-control">
     </div>
 
     @foreach(['a','b','c','d','e'] as $huruf)
@@ -69,7 +64,7 @@
 
     <div class="mb-3">
         <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Simpan</button>
-        <a href="{{ route('soal.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Kembali</a>
+        <a href="{{ route('soal_tryout.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Kembali</a>
     </div>
 </form>
 @endsection

@@ -48,6 +48,19 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <p style="color: rgba(0, 0, 0, 0.372)">email digunakan untuk login</p>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" 
+                               name="email" value="{{ old('email') }}" required autofocus>
+                        @error('email')
+                            <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>                
+
+                <div class="mb-3">
                     <label for="no_hp" class="form-label">Nomor HP</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>

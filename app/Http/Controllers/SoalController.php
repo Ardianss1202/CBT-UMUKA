@@ -84,27 +84,27 @@ class SoalController extends Controller
     {
         $request->validate([
             'id_mapel' => 'required',
-            // 'id_guru' => 'required',
             'soal' => 'required',
             'jawaban' => 'required',
-            'gambar_soal' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $soal = Soal::findOrFail($id);
-        $data = $request->except('gambar_soal');
+        $data = $request->except('file');
 
-        // Upload gambar soal jika ada perubahan
-        // if ($request->hasFile('gambar_soal')) {
-        //     // Hapus gambar lama jika ada
-        //     if ($soal->file && file_exists(public_path('upload/gambar_soal/' . $soal->file))) {
-        //         unlink(public_path('upload/gambar_soal/' . $soal->file));
-        //     }
+            // Upload gambar soal jika ada file baru
+            if ($request->hasFile('file')) {
+                // Hapus gambar lama jika ada
+                if ($soal->file && file_exists(public_path('upload/gambar_soal/' . $soal->file))) {
+                    unlink(public_path('upload/gambar_soal/' . $soal->file));
+                }
 
-        //     $file = $request->file('gambar_soal');
-        //     $filename = time() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('upload/gambar_soal'), $filename);
-        //     $data['file'] = $filename;
-        // }
+                $file = $request->file('file');
+                $filename = 'gambar_soal_' . $soal->id . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('upload/gambar_soal'), $filename);
+
+                $data['file'] = $filename;
+            }
 
         $soal->update($data);
 

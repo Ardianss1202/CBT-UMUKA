@@ -13,7 +13,9 @@ use App\Http\Controllers\IkutUjianController;
 use App\Http\Controllers\MapelTryoutController;
 use App\Http\Controllers\RegisterTryoutController;
 use App\Http\Controllers\SiswaTryoutController;
+use App\Http\Controllers\SoalTryoutController;
 use App\Http\Controllers\UjianController;
+use App\Http\Controllers\UjianTryoutController;
 use App\Models\Siswa;
 
 // Menampilkan halaman login
@@ -51,6 +53,13 @@ Route::middleware(['authadmin'])->group(function () {
     Route::put('/soal/{id}', [SoalController::class, 'update'])->name('soal.update');  // Update soal
     Route::delete('/soal/{id}', [SoalController::class, 'destroy'])->name('soal.destroy'); // Hapus soal
 
+    Route::get('/data-soal-tryout', [SoalTryoutController::class, 'index'])->name('soal_tryout.index');
+    Route::get('/data-soal-tryout/create', [SoalTryoutController::class, 'create'])->name('soal_tryout.create');
+    Route::post('/data-soal-tryout/store', [SoalTryoutController::class, 'store'])->name('soal_tryout.store');
+    Route::get('/data-soal-tryout/{id}/edit', [SoalTryoutController::class, 'edit'])->name('soal_tryout.edit');
+    Route::put('/data-soal-tryout/{id}/update', [SoalTryoutController::class, 'update'])->name('soal_tryout.update');
+    Route::delete('/data-soal-tryout/{id}/destroy', [SoalTryoutController::class, 'destroy'])->name('soal_tryout.destroy');
+
     Route::get('/data-ujian', [UjianController::class, 'index'])->name('ujian.index');
     Route::get('/edit-data-ujian/{id}', [UjianController::class, 'edit'])->name('ujian.edit');
     Route::put('/update-data-ujian/{id}', [UjianController::class, 'update'])->name('ujian.update');
@@ -84,6 +93,13 @@ Route::middleware(['authadmin'])->group(function () {
         Route::delete('/delete/{id}', [HasilUjianController::class, 'destroy'])->name('hasil_ujian.destroy'); // Hapus hasil ujian
     });
 
+    Route::get('/data-ujian-tryout', [UjianTryoutController::class, 'index'])->name('ujian_tryout.index');
+    Route::get('/data-ujian-tryout/create', [UjianTryoutController::class, 'create'])->name('ujian_tryout.create');
+    Route::post('/data-ujian-tryout/store', [UjianTryoutController::class, 'store'])->name('ujian_tryout.store');
+    Route::get('/data-ujian-tryout/{id}/edit', [UjianTryoutController::class, 'edit'])->name('ujian_tryout.edit');
+    Route::put('/data-ujian-tryout/{id}/update', [UjianTryoutController::class, 'update'])->name('ujian_tryout.update');
+    Route::put('/data-ujian-tryout/generateToken/{id}', [UjianTryoutController::class, 'generateToken'])->name('ujian_tryout.generateToken');
+
 
 
 
@@ -103,7 +119,10 @@ Route::middleware(['authuser'])->group(function () {
 
 Route::middleware(['authusertryout'])->group(function () {
     Route::get('/dashboard-user-tryout', [DashboardController::class, 'dashboard_user_tryout'])->name('dashboard_user_tryout');  
+    Route::get('/Try-Out', [UjianTryoutController::class, 'daftar_ujian'])->name('daftar_ujian');
+    Route::get('/konfirmasi-tryout', [UjianTryoutController::class, 'konfirmasi_tryout'])->name('konfirmasi_tryout');
 }); 
+ 
 
 // Logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

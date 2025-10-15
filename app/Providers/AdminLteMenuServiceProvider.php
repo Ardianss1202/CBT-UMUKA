@@ -52,6 +52,16 @@ class AdminLteMenuServiceProvider extends ServiceProvider
                     'text' => 'Data Mapel',
                     'url' => 'data-mapel',
                     'icon' => 'fas fa-book nav-icon',
+                    ];
+                $menu[] = [
+                    'text' => 'Data Soal Tryout',
+                    'url' => 'data-soal-tryout',
+                    'icon' => 'fas fa-book nav-icon',
+                ];    
+                $menu[] = [
+                    'text' => 'Mapel Tryout',
+                    'url' => 'mapel-tryout',
+                    'icon' => 'fas fa-book nav-icon',
                 ];                
                 $menu[] = [
                     'text' => 'Ujian',
@@ -59,20 +69,26 @@ class AdminLteMenuServiceProvider extends ServiceProvider
                     'icon' => 'fas fa-book nav-icon',
                 ];
                 $menu[] = [
+                    'text' => 'Tryout',
+                    'url' => 'data-ujian-tryout',
+                    'icon' => 'fas fa-book nav-icon',
+                ];
+           
+                $menu[] = [
                     'text' => 'Hasil Ujian',
                     'url' => 'hasil-ujian',
                     'icon' => 'fas fa-chart-line nav-icon',
-                ];
-                $menu[] = [
-                    'text' => 'Mapel Tryout',
-                    'url' => 'mapel-tryout',
-                    'icon' => 'fas fa-book nav-icon',
                 ]; 
             } elseif ($level === 'siswa_tryout') {
                 $menu[] = [
                     'text' => 'Dashboard',
                     'url' => 'dashboard-user-tryout',
                     'icon' => 'fas fa-home nav-icon',
+                ];
+                 $menu[] = [
+                    'text' => 'Try Out',
+                    'url' => 'Try-Out',
+                    'icon' => 'fas fa-book nav-icon',
                 ];
             }else {
                 $menu[] = [
@@ -85,7 +101,7 @@ class AdminLteMenuServiceProvider extends ServiceProvider
                     'url' => 'ujian',
                     'icon' => 'fas fa-book nav-icon',
                 ];
-           
+                
             }
 
             // Set ke konfigurasi AdminLTE
